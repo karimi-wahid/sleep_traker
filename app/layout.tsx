@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sleep Tracker",
+  title: "Restify | Sleep Tracker",
   description: "A sleep tracker app with Next.js",
 };
 
