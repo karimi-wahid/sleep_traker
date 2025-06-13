@@ -1,4 +1,6 @@
 import AddNewRecord from "@/components/AddNewRecord";
+import AverageSleep from "@/components/AverageSleep";
+import BestWorstSleep from "@/components/BestWorstSleep";
 import Guest from "@/components/Guest";
 import RecordChart from "@/components/RecordChart";
 import { currentUser } from "@clerk/nextjs/server";
@@ -56,7 +58,6 @@ export default async function Home() {
 
         {/* Right Column */}
         <div className="space-y-6">
-          {/* Placeholder for RecordStats, RecentRecord, and Insights */}
           <RecordChart />
           <AverageSleep />
           <BestWorstSleep />
