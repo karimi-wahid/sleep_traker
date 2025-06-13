@@ -3,6 +3,7 @@ import AverageSleep from "@/components/AverageSleep";
 import BestWorstSleep from "@/components/BestWorstSleep";
 import Guest from "@/components/Guest";
 import RecordChart from "@/components/RecordChart";
+import RecordHistory from "@/components/RecordHistory";
 import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 
