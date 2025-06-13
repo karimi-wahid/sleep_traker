@@ -5,26 +5,21 @@ const AverageSleep = async () => {
   try {
     const { record, daysWithRecords } = await getUserRecord();
 
-    // Ensure valid numbers
     const validRecord = record || 0;
-    const validDays =
-      daysWithRecords && daysWithRecords > 0 ? daysWithRecords : 1; // Fallback to 1 to avoid division by 0
+    const validDays = daysWithRecords && daysWithRecords > 0 ? daysWithRecords : 1;
 
-    // Calculate the average sleep for the days with records
     const averageSleep = validRecord / validDays;
-
-    // Extract hours and minutes
     const hours = Math.floor(averageSleep);
     const minutes = Math.round((averageSleep - hours) * 60);
 
     return (
-      <div className="bg-gray-100 flex items-center justify-center">
-        <div className="bg-white shadow-lg rounded-lg p-8 w-full text-center">
-          <h4 className="text-lg font-medium text-gray-600 mb-2">
-            Your Average Sleep Last Month
+      <div className="min-h-[30vh] bg-[#fffbea] flex items-center justify-center p-4">
+        <div className="bg-white border border-[#199473]/10 shadow-md rounded-xl px-8 py-10 w-full max-w-lg text-center">
+          <h4 className="text-md sm:text-lg font-medium text-gray-500 mb-2">
+            Your Average Sleep (Last Month)
           </h4>
-          <h1 className="sm:text-3xl text-2xl font-bold">
-            {hours} hours {minutes} minutes
+          <h1 className="text-3xl sm:text-4xl font-bold text-[#199473]">
+            {hours}h {minutes}m
           </h1>
         </div>
       </div>
@@ -32,10 +27,12 @@ const AverageSleep = async () => {
   } catch (error) {
     console.error("Error fetching user record:", error);
     return (
-      <div className="bg-gray-100 flex items-center justify-center min-h-screen">
-        <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md text-center">
-          <h4 className="text-lg font-medium text-gray-600 mb-2">Error</h4>
-          <p className="text-red-600">Unable to calculate average sleep.</p>
+      <div className="min-h-[30vh] bg-[#fffbea] flex items-center justify-center p-4">
+        <div className="bg-white border border-red-200 shadow-md rounded-xl px-8 py-10 w-full max-w-lg text-center">
+          <h4 className="text-md font-semibold text-red-600 mb-2">Error</h4>
+          <p className="text-sm text-gray-500">
+            Unable to calculate average sleep. Please try again later.
+          </p>
         </div>
       </div>
     );

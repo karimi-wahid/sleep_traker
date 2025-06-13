@@ -13,37 +13,42 @@ export default async function Home() {
   if (!user) {
     return <Guest />;
   }
+
   return (
-    <main className="bg-gray-100 text-gray-800 font-sans min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <main className="bg-[#f9fafb] text-gray-900 font-sans">
+      <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Left Column */}
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow-md flex flex-col sm:flex-row items-center sm:items-start gap-6">
+        <div className="">
+          <div
+            className="bg-white p-4 rounded-2xl shadow-lg flex flex-col sm:flex-row items-center sm:items-start gap-8
+            border-1 border-[#199473] hover:shadow-2xl transition-shadow duration-300">
             {/* User Image */}
             <Image
               src={user.imageUrl}
-              alt={`${user.firstName}&#39;s profile`}
-              className="w-24 h-24 rounded-full border border-gray-300 shadow-md"
-              width={100}
-              height={100}
+              alt={`${user.firstName}'s profile`}
+              className="w-20 h-20 rounded-full border-4 border-[#f2a365] shadow-xl object-cover"
+              width={112}
+              height={112}
+              priority
             />
 
             {/* User Details */}
             <div className="flex-1">
-              <h2 className="text-2xl md:text-3xl font-bold mb-2">
-                Welcome Back, {user.firstName} 👋
+              <h2 className="text-xl font-extrabold italic text-[#199473] mb-3 tracking-wide">
+                Welcome Back, {user.firstName}{" "}
+                <span className="text-2xl">👋</span>
               </h2>
-              <p className="text-gray-600 mb-4">
-                Here&#39;s a quick overview of your recent sleep activity. Stay
-                on top of your data insights and manage your tasks efficiently!
+              <p className="text-gray-700 leading-relaxed mb-5">
+                Here’s a quick overview of your recent sleep activity. Stay on
+                top of your data insights and manage your tasks efficiently!
               </p>
-              <div className="space-y-2">
-                <p className="text-gray-600">
-                  <span className="font-semibold text-gray-800">Joined:</span>{" "}
+              <div className="space-y-3 text-gray-600">
+                <p>
+                  <span className="font-semibold text-[#199473]">Joined:</span>{" "}
                   {new Date(user.createdAt).toLocaleDateString()}
                 </p>
-                <p className="text-gray-600">
-                  <span className="font-semibold text-gray-800">
+                <p>
+                  <span className="font-semibold text-[#199473]">
                     Last Active:
                   </span>{" "}
                   {user.lastActiveAt
@@ -53,19 +58,21 @@ export default async function Home() {
               </div>
             </div>
           </div>
-          {/* Placeholder for AddSleepRecord */}
+
+          {/* Add New Record Component */}
           <AddNewRecord />
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className="space-y-10">
           <RecordChart />
           <AverageSleep />
           <BestWorstSleep />
         </div>
       </div>
-      {/* Placeholder for SleepHistory */}
-      <div className="max-w-7xl mx-auto">
+
+      {/* Sleep History */}
+      <div className="max-w-7xl mx-auto mt-16 px-6">
         <RecordHistory />
       </div>
     </main>

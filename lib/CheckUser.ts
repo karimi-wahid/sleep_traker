@@ -5,14 +5,12 @@ import { db } from "@/lib/db";
 export const checkUser = async () => {
   const user = await currentUser();
 
-  //check for current logged in clerk user
-
+  // Check for current logged in clerk user
   if (!user) {
     return null;
   }
 
   // Check if the user is already in the database
-
   const loggedInUser = await db.user.findUnique({
     where: {
       clerkUserId: user.id,
@@ -20,13 +18,20 @@ export const checkUser = async () => {
   });
 
   // If user is in database, return user
-
   if (loggedInUser) {
     return loggedInUser;
   }
 
-  // if not in database create new user
+  // Check if a user with this email already exists
+  const email = user.emailAddresses?.[0]?.emailAddress;
+  if (!email) throw new Error("No email found for user.");
 
+  const existingEmailUser = await db.user.findUnique({
+    where: { email },
+  });
+  if (existingEmailUser) return existingEmailUser;
+
+  // If not in database, create new user
   const newUser = await db.user.create({
     data: {
       clerkUserId: user.id,

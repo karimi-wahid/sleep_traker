@@ -13,11 +13,11 @@ const RecordHistory = async () => {
     );
   }
 
-  if (!records || records.length === 0) {
+  if (!records?.length) {
     return (
       <div className="bg-gray-100 flex items-center justify-center pb-6">
-        <div className="bg-white shadow-lg rounded-lg p-8 w-full text-center">
-          <h3 className="text-2xl font-bold mb-4 ">No Sleep Records Found</h3>
+        <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-xl text-center">
+          <h3 className="text-xl font-bold mb-4">No Sleep Records Found</h3>
           <p className="text-gray-600">
             Start tracking your sleep to see your history here.
           </p>
@@ -27,8 +27,8 @@ const RecordHistory = async () => {
   }
 
   return (
-    <div className="bg-gray-100 p-6 ">
-      <div className="bg-white shadow-lg rounded-lg p-8 mx-auto">
+    <div className="bg-gray-100 p-6">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl mx-auto">
         <h3 className="text-2xl font-bold text-center mb-6 border-b border-gray-200 pb-6">
           Sleep History
         </h3>

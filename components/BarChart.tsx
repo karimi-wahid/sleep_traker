@@ -21,29 +21,30 @@ ChartJS.register(
   Legend
 );
 
-// Define the type for a record
 interface Record {
-  date: string; // ISO date string
-  amount: number; // Hours slept
+  date: string;
+  amount: number;
 }
 
 const BarChart = ({ records }: { records: Record[] }) => {
-  // Prepare data for the chart
   const data = {
-    labels: records.map((record) => new Date(record.date).toLocaleDateString()), // Use record dates as labels
+    labels: records.map((r) =>
+      new Date(r.date).toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+      })
+    ),
     datasets: [
       {
-        data: records.map((record) => record.amount), // Use record amounts as data
-        backgroundColor: records.map((record) =>
-          record.amount < 7
-            ? "rgba(255, 99, 132, 0.2)"
-            : "rgba(75, 192, 192, 0.2)"
-        ), // Red for < 7, Green for >= 7
-        borderColor: records.map((record) =>
-          record.amount < 7 ? "rgba(255, 99, 132, 1)" : "rgba(75, 192, 192, 1)"
-        ), // Red for < 7, Green for >= 7
-        borderWidth: 1,
-        borderRadius: 2, // Rounded bar edges
+        label: "Sleep Hours",
+        data: records.map((r) => r.amount),
+        backgroundColor: records.map((r) =>
+          r.amount < 7 ? "#FFC10799" : "#19947399"
+        ),
+        borderColor: records.map((r) => (r.amount < 7 ? "#FFC107" : "#199473")),
+        borderWidth: 1.5,
+        borderRadius: 6,
+        barThickness: 28,
       },
     ],
   };
@@ -51,11 +52,14 @@ const BarChart = ({ records }: { records: Record[] }) => {
   const options = {
     responsive: true,
     plugins: {
-      legend: {
-        display: false, // Remove legend
-      },
-      title: {
-        display: false, // Remove chart title
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: "#fff",
+        titleColor: "#199473",
+        bodyColor: "#333",
+        borderColor: "#199473",
+        borderWidth: 1,
+        padding: 8,
       },
     },
     scales: {
@@ -63,49 +67,53 @@ const BarChart = ({ records }: { records: Record[] }) => {
         title: {
           display: true,
           text: "Date",
+          color: "#199473",
           font: {
             size: 14,
             weight: "bold" as const,
           },
-          color: "#2c3e50",
         },
         ticks: {
+          color: "#666",
           font: {
-            size: 12, // Adjust x-axis font size
+            size: 12,
           },
-          color: "#7f8c8d", // Gray x-axis labels
         },
         grid: {
-          display: false, // Hide x-axis grid lines
+          display: false,
         },
       },
       y: {
         title: {
           display: true,
           text: "Hours Slept",
+          color: "#199473",
           font: {
-            size: 16,
+            size: 14,
             weight: "bold" as const,
           },
-          color: "#2c3e50",
         },
         ticks: {
+          color: "#444",
           font: {
-            size: 12, // Adjust y-axis font size
+            size: 12,
           },
-          color: "#7f8c8d", // Gray y-axis labels
         },
         grid: {
-          color: "#e0e0e0", // Light gray y-axis grid lines
+          color: "#eee",
         },
-        suggestedMin: 4, // Start y-axis at 4
-        suggestedMax: 10, // Extend y-axis to a larger value
-        beginAtZero: false, // Ensure y-axis starts at zero
+        suggestedMin: 4,
+        suggestedMax: 10,
+        beginAtZero: false,
       },
     },
   };
 
-  return <Bar data={data} options={options} />;
+  return (
+    <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
+      <Bar data={data} options={options} />
+    </div>
+  );
 };
 
 export default BarChart;
